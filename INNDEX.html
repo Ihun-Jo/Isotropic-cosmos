@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>설문조사</title>
+<style>
+        /* 뉴로모피즘 스타일 적용 */
+        #dynamicImage {
+    width: 200px;
+    height: 200px;
+    border-radius: 10%;
+    border: black solid 1px;
+    transition: opacity 0.5s ease-in-out; /* 페이드 인 애니메이션 */
+    opacity: 1; /* 초기 투명도 */
+}
+
+#imageCircle {
+    text-align: center;
+}
+
+        /* 기본 스타일 설정 */
+
+        html::-webkit-scrollbar {
+                display: none;
+        }
+        body {
+            background: black; /* 연한 회색 배경 */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        #valueQ1 {display: none;}
+        #valueQ2 {display: none;}
+        #valueQ3 {display: none;}
+        #valueQ4_1 {display: none;}
+        #valueQ4_2 {display: none;}
+        #valueQ4_3 {display: none;}
+        #valueQ5 {display: none;}
+        #valueQ6 {display: none;}
+        #valueQ2
+        #totalq7 {display: none;}
+
+        h1 {
+            text-align: center;
+            color: #555;
+            margin-bottom: 40px;
+            font-size: 2em;
+            text-shadow:
+                5px 5px 10px #bebebe,
+                -5px -5px 10px #ffffff;
+        }
+
+        form {
+            background: #e0e0e0;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid black;
+        }
+
+        .question {
+            margin-bottom: 50px;
+        }
+
+
+        #q {
+            margin-bottom: 30px;
+        } 
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+            font-size: 1.1em;
+            text-shadow:
+                3px 3px 6px #bebebe,
+                -3px -3px 6px #ffffff;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 5px;
+            margin-top: 20px;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: #e0e0e0;
+            outline: none;
+            box-shadow:
+                inset 4px 4px 8px #bebebe,
+                inset -4px -4px 8px #ffffff;
+            margin: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            box-shadow:
+                4px 4px 8px #bebebe,
+                -4px -4px 8px #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        input[type="range"]:hover::-webkit-slider-thumb {
+            box-shadow:
+                2px 2px 4px #bebebe,
+                -2px -2px 4px #ffffff;
+        }
+
+        input[type="range"]:active::-webkit-slider-thumb {
+            box-shadow:
+                inset 2px 2px 4px #bebebe,
+                inset -2px -2px 4px #ffffff;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 10px;
+            accent-color: #888;
+        }
+
+        .question div {
+            background: #e0e0e0;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow:
+                4px 4px 8px #bebebe,
+                -4px -4px 8px #ffffff;
+        }
+
+        #totalq7 {
+            font-weight: bold;
+            color: #333;
+        }
+
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 15px;
+            background: #e0e0e0;
+            box-shadow:
+                8px 8px 16px #bebebe,
+                -8px -8px 16px #ffffff;
+            cursor: pointer;
+            font-size: 1em;
+            color: #555;
+            transition: all 0.3s ease;
+        }
+
+
+        button:hover {
+            box-shadow:
+                4px 4px 8px #bebebe,
+                -4px -4px 8px #ffffff;
+        }
+
+        button:active {
+            box-shadow:
+                inset 4px 4px 8px #bebebe,
+                inset -4px -4px 8px #ffffff;
+        }
+
+
+        /* 색상 원 스타일 */
+        #colorCircle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 20px auto;
+            border: 2px solid #555;
+        }
+
+
+        /* 응답 값 표시 스타일 */
+        span[id^="valueQ"],
+        #totalq7 {
+            display: inline-block;
+            margin-left: 10px;
+            color: #333;
+            font-weight: bold;
+            text-shadow:
+                1px 1px 2px #bebebe,
+                -1px -1px 2px #ffffff;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 600px) {
+            form {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            label {
+                font-size: 1em;
+            }
+
+            button {
+                padding: 12px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form id="surveyForm">
+        
+        <div class="question">
+            <label id="q">Q1| 보통 이러한 질문지법 유형 검사에서, 한 문항에 얼마 정도 시간을 투자합니까?
+                <br>On these sort of questionnaire-type tests, how much time do you typically spend on a question?
+                <div class="slider-labels">
+                    <span>Agree</span> <span>Disagree</span>
+                </div>
+            </label>
+            <input type="range" class="slider" id="q1" name="q1" min="-5" max="5" step="0.1" value="0" oninput="updateValue('valueQ1', this.value)">
+            <span id="valueQ1">0</span>
+        </div>
+        
+        <div class="question">
+            <label id="q">Q2| 질문이 너무 명확할 때, 당신의 솔직한 답변이 왜곡되는 경향이 있습니까?
+                <br>When the question is too clear, does it tend to skew your honest answer?
+            </label>
+            <div>
+                <label><input type="radio" name="q2" value="-5"> 매우 아니다</label><br>
+                <label><input type="radio" name="q2" value="-3"> 아니다</label><br>
+                <label><input type="radio" name="q2" value="-1"> 조금 아니다</label><br>
+                <label><b><input type="radio" name="q2" value="0"> 중간이다</label></b><br>
+                <label><input type="radio" name="q2" value="1"> 조금 그렇다</label><br>
+                <label><input type="radio" name="q2" value="3"> 그렇다</label><br>
+                <label><input type="radio" name="q2" value="5"> 매우 그렇다</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <label id="q">Q3| 모든 설문 질문에서 중립적인 답변(중간)을 제공하는 것이 중요하다고 생각하십니까?</label>
+            <div>
+                <label><input type="radio" name="q3" value="-5"> 매우 아니다</label><br>
+                <label><input type="radio" name="q3" value="-3"> 아니다</label><br>
+                <label><input type="radio" name="q3" value="-1"> 조금 아니다</label><br>
+                <label><input type="radio" name="q3" value="1"> 조금 그렇다</label><br>
+                <label><input type="radio" name="q3" value="3"> 그렇다</label><br>
+                <label><input type="radio" name="q3" value="5"> 매우 그렇다</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <label id="q">Q4| 이러한 ‘테스트’나 ‘설문’의 경험에 있어서, 당신의 동기는 어떤 것입니까? 
+                
+            </label>
+            <!-- Q4-1 -->
+            <div id="colorCircle"></div>
+            
+            <label>흥미</label>
+            <input type="range" class="slider" id="q4_1" name="q4_1" min="0" max="255" step="1" value="255" oninput="updateValue('valueQ4_1', this.value); updateColor()">
+            <div class="slider-labels">
+                <span id="valueQ4_1"></span><span>0%</span><span>100%</span>
+            </div>
+            
+            <!-- Q4-2 -->
+            <label>보상</label>
+            <input type="range" class="slider" id="q4_2" name="q4_2" min="0" max="255" step="1" value="255" oninput="updateValue('valueQ4_2', this.value); updateColor()">
+            <div class="slider-labels">
+                <span id="valueQ4_2"></span><span>0%</span><span>100%</span>
+            </div>
+            
+            <!-- Q4-3 -->
+            <label>사회적 기여</label>
+            <input type="range" class="slider" id="q4_3" name="q4_3" min="0" max="255" step="1" value="255" oninput="updateValue('valueQ4_3', this.value); updateColor()">
+            <div class="slider-labels">
+                <span id="valueQ4_3"></span><span>0%</span><span>100%</span>
+            </div>
+        </div>
+
+
+        <div class="question">
+            <label id="q">Q5| 이러한 질문에 솔직하게 답변했다고 느끼는 비율은 몇 퍼센트입니까?</label>
+                <div class="slider-labels">
+                    <span>0%</span> <span>100%</span>
+                </div>
+            
+            <input type="range" class="slider" id="q5" name="q5" min="0.1" max="5" step="0.1" value="0" oninput="updateValue('valueQ5', this.value)">
+            <span id="valueQ5"></span>
+        </div>
+
+        <div class="question">
+            <label id="q">Q6| 설문 중간에 도망치고 싶은 욕구가 어느 정도인가요?
+
+            </label>
+
+            <div id="imageCircle">
+                <img id="dynamicImage" src="face1.png" alt="Image for Q6" style="width: 100px; height: 100px; border-radius: 50%;">
+            </div>
+
+            <input type="range" class="slider" id="q6" name="q6" min="1" max="7" step="0.1" value="1" oninput="updateValue('valueQ6', this.value); updateImage()">
+            <span id="valueQ6">2.5</span>
+        </div>
+
+        <div class="question">
+            <label id="q">Q7| 이러한 데이터의 수집 의의는 무엇일까요?</label>
+            <div>
+                <label><input type="checkbox" name="q7" value="-5" onchange="calculateSum()">순수한 궁금증에 기반하여</label><br>
+                <label><input type="checkbox" name="q7_option" value="-3" onchange="calculateSum()">사람들을 혼란스럽게 하려고</label><br>
+                <label><input type="checkbox" name="q7_option" value="-1" onchange="calculateSum()">데이터 체계를 부수기 위해서</label><br>
+                <label><input type="checkbox" name="q7_option" value="0" onchange="calculateSum()">외계인의 실험</label><br>
+                <label><input type="checkbox" name="q7_option" value="1" onchange="calculateSum()">외압에 의하여 강제됨</label><br>
+                <label><input type="checkbox" name="q7_option" value="3" onchange="calculateSum()">모든 것은 무용하다고 생각해서</label><br>
+                <label><input type="checkbox" name="q7_option" value="5" onchange="calculateSum()">하이젠베르그 불확실성 원리의 증명</label>
+            </div>
+            <span id="totalq7"></span>
+        </div>
+
+        <button type="button" onclick="submitData()">제출</button>
+    </form>
+
+    <script>
+        function updateValue(id, value) {
+            document.getElementById(id).textContent = value;
+        }
+
+        function updateColor() {
+            const r = document.getElementById('q4_1').value;
+            const g = document.getElementById('q4_2').value;
+            const b = document.getElementById('q4_3').value;
+            document.getElementById('colorCircle').style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+
+            // 슬라이더 값 업데이트
+            updateValue('valueQ4_1', r);
+            updateValue('valueQ4_2', g);
+            updateValue('valueQ4_3', b);
+        }
+
+        function calculateSum() {
+            const checkboxes = document.querySelectorAll('input[name="q7"], input[name="q7_option"]');
+            let total = 0;
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    total += parseFloat(checkbox.value);
+                }
+            });
+            document.getElementById('totalq7').textContent = total;
+        }
+
+        function submitData() {
+            const formData = new FormData(document.getElementById('surveyForm'));
+            const data = {};
+
+            // Q7의 총합 계산 및 추가
+            let checkboxes = document.querySelectorAll('input[name="q7"], input[name="q7_option"]:checked');
+            let q7Total = 0;
+            checkboxes.forEach((checkbox) => {
+                q7Total += parseFloat(checkbox.value);
+            });
+            data['q7'] = q7Total;
+
+            // Q1, Q2, Q3, Q4_1, Q4_2, Q4_3, Q5, Q6
+            data['q1'] = formData.get('q1');
+            data['q2'] = formData.get('q2');
+            data['q3'] = formData.get('q3');
+            data['q4_1'] = formData.get('q4_1');
+            data['q4_2'] = formData.get('q4_2');
+            data['q4_3'] = formData.get('q4_3');
+            data['q5'] = formData.get('q5');
+            data['q6'] = formData.get('q6');
+
+            google.script.run.withSuccessHandler(() => {
+                alert('제출 완료!');
+                document.getElementById('surveyForm').reset();
+                // 초기값으로 리셋
+                document.getElementById('valueQ1').textContent = '0';
+                document.getElementById('valueQ4_1').textContent = '255';
+                document.getElementById('valueQ4_2').textContent = '255';
+                document.getElementById('valueQ4_3').textContent = '255';
+                document.getElementById('valueQ5').textContent = '50';
+                document.getElementById('valueQ6').textContent = '2.5';
+                document.getElementById('totalq7').textContent = '0';
+            }).submitForm(data);
+        }
+
+
+        function updateValue(id, value) {
+        document.getElementById(id).textContent = parseFloat(value).toFixed(1);
+    }
+
+    function updateImage() {
+    const sliderValue = parseFloat(document.getElementById('q6').value);
+    const dynamicImage = document.getElementById('dynamicImage');
+    
+    // 이미지 페이드 아웃
+    dynamicImage.style.opacity = 0;
+
+    // 약간의 딜레이를 두고 이미지를 변경한 뒤 페이드 인
+    setTimeout(() => {
+        if (sliderValue >= 1 && sliderValue < 2) {
+            dynamicImage.src = 'face1.png';
+        } else if (sliderValue >= 2 && sliderValue < 3) {
+            dynamicImage.src = 'face2.png';
+        } else if (sliderValue >= 3 && sliderValue < 4) {
+            dynamicImage.src = 'face3.png';
+        } else if (sliderValue >= 4 && sliderValue < 5) {
+            dynamicImage.src = 'face4.png';
+        } else if (sliderValue >= 5 && sliderValue < 6) {
+            dynamicImage.src = 'face5.png';
+        } else if (sliderValue >= 6 && sliderValue <= 7) {
+            dynamicImage.src = 'face6.png';
+        }
+        // 이미지 페이드 인
+        dynamicImage.style.opacity = 1;
+    }, 200); // 페이드 아웃 후 이미지가 바뀌는 딜레이 시간
+}
+
+
+
+    </script>
+</body>
+</html>
